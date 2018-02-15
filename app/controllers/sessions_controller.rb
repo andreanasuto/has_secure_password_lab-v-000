@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def create
-    @user = User.new(name: params[:name], password: params[:password])
+    @user = User.find(name: params[:name])
+    return head(:forbidden) unless @user.authenticate(params[:password])
   end
 end
